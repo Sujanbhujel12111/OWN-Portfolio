@@ -17,14 +17,16 @@
      own sign-off name. Search for "EDIT ME" to find it fast. */
 
   :root{
-    --cream:#FFF6F0;
-    --blush:#FFD6E0;
-    --rose:#F2A6C4;
-    --deep-rose:#D6538C;
-    --plum:#4A2140;
-    --gold:#E7B554;
+    --cream:#FFFBF2;
+    --blush:#FFE29A;
+    --rose:#FF9F68;
+    --deep-rose:#FF6B6B;
+    --teal:#2EC4B6;
+    --purple:#8E6BFF;
+    --plum:#3A2E4D;
+    --gold:#FFC145;
     --paper:#FFFDFB;
-    --shadow: 0 20px 50px rgba(74,33,64,0.15);
+    --shadow: 0 20px 50px rgba(58,46,77,0.15);
   }
 
   *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
@@ -35,9 +37,9 @@
     margin:0;
     min-height:100vh;
     background:
-      radial-gradient(circle at 15% 20%, rgba(255,214,224,0.9), transparent 45%),
-      radial-gradient(circle at 85% 10%, rgba(231,184,84,0.15), transparent 40%),
-      radial-gradient(circle at 50% 90%, rgba(242,166,196,0.5), transparent 50%),
+      radial-gradient(circle at 15% 20%, rgba(255,159,104,0.35), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(142,107,255,0.18), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(46,196,182,0.18), transparent 50%),
       var(--cream);
     color:var(--plum);
     font-family:'Quicksand', sans-serif;
@@ -59,10 +61,10 @@
     position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden;
   }
   .floaty-heart{
-    position:absolute; bottom:-10%; font-size:1.4rem; opacity:0.55;
+    position:absolute; bottom:-10%; font-size:1.4rem; opacity:0.6;
     animation: float-up linear infinite;
-    color:var(--deep-rose);
-    filter: drop-shadow(0 2px 4px rgba(214,83,140,0.25));
+    color:var(--rose);
+    filter: drop-shadow(0 2px 4px rgba(255,107,107,0.2));
   }
   @keyframes float-up{
     0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0; }
@@ -84,58 +86,48 @@
     opacity:0; visibility:hidden; position:fixed; inset:0; pointer-events:none;
   }
   .envelope-wrap{
-    width:min(320px, 80vw);
-    aspect-ratio: 3/2;
+    width:min(260px, 70vw);
+    aspect-ratio: 1/1;
     position:relative;
     cursor:pointer;
     margin-bottom:28px;
-    filter: drop-shadow(0 18px 30px rgba(214,83,140,0.35));
   }
   .env-body{
-    position:absolute; inset:0;
-    background: linear-gradient(180deg, #ffffff, #ffe9f0);
-    border-radius:10px;
-    border:1px solid rgba(214,83,140,0.25);
+    position:absolute; left:8%; right:8%; bottom:0; top:34%;
+    background: linear-gradient(180deg, #ffffff, var(--blush));
+    border-radius:14px;
+    border:2px solid rgba(255,107,107,0.25);
     overflow:hidden;
+    box-shadow: 0 18px 30px rgba(255,107,107,0.25);
   }
+  .env-body::before, .env-body::after{
+    content:""; position:absolute; top:0; bottom:0; width:14%;
+    background: var(--deep-rose); opacity:0.85;
+  }
+  .env-body::before{ left:43%; }
+  .env-body::after{ left:43%; transform:rotate(90deg); width:100%; height:14%; top:0; left:0; }
   .env-flap{
-    position:absolute; top:0; left:0; right:0; height:52%;
-    background: linear-gradient(160deg, var(--rose), var(--deep-rose));
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    transform-origin: top center;
-    transition: transform 0.9s cubic-bezier(.6,-0.28,.44,1.4);
+    position:absolute; left:2%; right:2%; top:16%; height:34%;
+    background: linear-gradient(160deg, var(--purple), var(--deep-rose));
+    border-radius:14px 14px 4px 4px;
+    transform-origin: bottom center;
+    transition: transform 0.8s cubic-bezier(.6,-0.28,.44,1.4);
     z-index:3;
+    box-shadow: 0 10px 18px rgba(142,107,255,0.3);
   }
-  .envelope-wrap.open .env-flap{ transform: rotateX(180deg); }
-  .env-shadow-fold{
-    position:absolute; bottom:0; left:0; right:0; height:60%;
-    clip-path: polygon(0 100%, 50% 35%, 100% 100%);
-    background: linear-gradient(0deg, #ffd9e4, #ffeef3);
-    z-index:2;
+  .env-flap::before{
+    content:"🎁"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:1.6rem;
   }
+  .envelope-wrap.open .env-flap{ transform: rotateX(160deg) translateY(-10px); }
+  .env-shadow-fold{ display:none; }
   .env-letter{
-    position:absolute; left:8%; right:8%; bottom:6%;
-    height:70%;
-    background: var(--paper);
-    border-radius:6px;
-    box-shadow: 0 6px 14px rgba(74,33,64,0.15);
-    z-index:1;
-    transition: transform 0.7s ease 0.2s;
-    transform: translateY(6%);
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.6rem;
+    position:absolute; left:0; right:0; top:8%; text-align:center;
+    z-index:1; opacity:0; transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+    transform: translateY(10px) scale(0.7);
+    font-size:2.4rem;
   }
-  .envelope-wrap.open .env-letter{ transform: translateY(-38%); z-index:4; }
-  .env-heart-seal{
-    position:absolute; top:44%; left:50%; transform:translate(-50%,-50%);
-    width:38px; height:38px; border-radius:50%;
-    background: var(--gold);
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.1rem; color:#fff; z-index:5;
-    box-shadow:0 4px 10px rgba(231,184,84,0.5);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-  .envelope-wrap.open .env-heart-seal{ opacity:0; transform:translate(-50%,-50%) scale(0.4); }
+  .envelope-wrap.open .env-letter{ opacity:1; transform: translateY(-6px) scale(1); }
+  .env-heart-seal{ display:none; }
 
   .envelope-hint{
     font-size:1rem; color:var(--deep-rose); letter-spacing:0.04em;
@@ -211,7 +203,7 @@
   .flip-front .icon{ font-size:2.1rem; }
   .flip-front .tap-txt{ margin-top:10px; font-size:0.78rem; opacity:0.55; }
   .flip-back{
-    background:linear-gradient(160deg, var(--deep-rose), #b8386f);
+    background:linear-gradient(160deg, var(--purple), var(--teal));
     color:#fff; transform: rotateY(180deg); font-size:0.95rem; line-height:1.5;
   }
 
@@ -223,10 +215,10 @@
     border:1px solid rgba(214,83,140,0.15);
   }
   .letter-card::before{
-    content:"♥"; position:absolute; top:-22px; left:50%; transform:translateX(-50%);
+    content:"🎉"; position:absolute; top:-22px; left:50%; transform:translateX(-50%);
     width:44px; height:44px; border-radius:50%; background:var(--gold); color:#fff;
     display:flex; align-items:center; justify-content:center; font-size:1.2rem;
-    box-shadow:0 6px 14px rgba(231,184,84,0.5);
+    box-shadow:0 6px 14px rgba(255,193,69,0.5);
   }
   .letter-card h2{ text-align:center; color:var(--deep-rose); font-size:1.5rem; margin-bottom:22px; }
   .letter-body{ font-size:1.02rem; line-height:1.85; color:var(--plum); white-space:pre-line; }
@@ -240,8 +232,8 @@
   #music-toggle{
     position:fixed; bottom:22px; right:22px; z-index:10;
     width:54px; height:54px; border-radius:50%; border:none; cursor:pointer;
-    background: linear-gradient(160deg, var(--deep-rose), #b8386f);
-    color:#fff; font-size:1.3rem; box-shadow:0 10px 24px rgba(214,83,140,0.45);
+    background: linear-gradient(160deg, var(--purple), var(--deep-rose));
+    color:#fff; font-size:1.3rem; box-shadow:0 10px 24px rgba(142,107,255,0.45);
     display:flex; align-items:center; justify-content:center;
     transition: transform 0.3s ease;
   }
@@ -250,6 +242,20 @@
   @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
 
   #confetti-canvas{ position:fixed; inset:0; z-index:9; pointer-events:none; }
+
+  /* ---------- GUIDE TOAST ---------- */
+  .guide-toast{
+    position:fixed; left:50%; bottom:92px; z-index:11;
+    transform:translateX(-50%) translateY(16px);
+    background: var(--plum); color:#fff; padding:12px 22px; border-radius:999px;
+    font-size:0.88rem; font-weight:500; box-shadow:0 12px 26px rgba(74,33,64,0.35);
+    opacity:0; pointer-events:none; transition: opacity 0.45s ease, transform 0.45s ease;
+    max-width:88vw; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .guide-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  @media (max-width:480px){
+    .guide-toast{ bottom:80px; font-size:0.82rem; padding:10px 18px; white-space:normal; }
+  }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:480px){
@@ -270,13 +276,11 @@
 <!-- ============ ENVELOPE LANDING SCREEN ============ -->
 <section id="envelope-screen">
   <h1>A little something for you</h1>
-  <p class="sub">Tap the envelope to open it</p>
-  <div class="envelope-wrap" id="envelope" role="button" aria-label="Open envelope" tabindex="0">
+  <p class="sub">Tap the gift to open it</p>
+  <div class="envelope-wrap" id="envelope" role="button" aria-label="Open gift" tabindex="0">
     <div class="env-body"></div>
-    <div class="env-letter">💌</div>
-    <div class="env-shadow-fold"></div>
+    <div class="env-letter">🎉</div>
     <div class="env-flap"></div>
-    <div class="env-heart-seal">♥</div>
   </div>
   <div class="envelope-hint">↑ tap to open ↑</div>
 </section>
@@ -286,7 +290,7 @@
 
   <section class="hero">
     <div class="eyebrow">A very special day</div>
-    <h1>Happy Birthday<span class="name" id="hero-name">Amrita Maam</span></h1>
+    <h1>Happy Birthday<span class="name" id="hero-name">Love</span></h1>
     <p class="tag" id="hero-tag">Every year gives the world one more reason to celebrate — because it gave me you.</p>
 
     <div class="cake-wrap">
@@ -301,7 +305,7 @@
   </section>
 
   <section class="reasons-section">
-    <h2>Reasons you make my world better</h2>
+    <h2 id="reasons-heading">Why you're one of the good ones</h2>
     <p class="lead">tap a card to flip it</p>
     <div class="cards-grid" id="cards-grid"></div>
   </section>
@@ -317,9 +321,10 @@
   <footer id="footer-note">made with ♥ for someone who deserves the world</footer>
 </div>
 
+<div id="guide-toast" class="guide-toast"></div>
 <button id="music-toggle" aria-label="Toggle music">🎵</button>
 <audio id="bg-audio" loop>
-   <source src="Happy Birthday song Romantic version  romantic piano version.mp3" type="audio/mpeg">
+  <source src="Happy Birthday song Romantic version  romantic piano version.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -327,25 +332,25 @@
    EDIT ME — personalize everything here
 ========================================================= */
 const CONFIG = {
-  name: "Love",                 // her name, shown in the big heading
-  heroTagline: "Every year gives the world one more reason to celebrate — because it gave me you.",
+  name: "Amrita",                 // her name, shown in the big heading
+  heroTagline: "Hope your day is as fun, chaotic, and great as you are. Let's celebrate!",
   reasons: [
-    { icon:"😊", text:"Your smile turns an ordinary day into a good one." },
-    { icon:"🎧", text:"You listen — really listen — and it always makes me feel seen." },
-    { icon:"😂", text:"You laugh at my terrible jokes, and somehow that means everything." },
-    { icon:"🌷", text:"You care about the little things, and that says a lot about your heart." },
-    { icon:"💬", text:"Talking to you is my favorite part of any day." },
-    { icon:"✨", text:"You're just... you. And that's more than enough." }
+    { icon:"😄", text:"You make everyone around you laugh without even trying." },
+    { icon:"🎧", text:"You're an actual good listener, which is rarer than people think." },
+    { icon:"🙌", text:"You show up for people. That doesn't go unnoticed." },
+    { icon:"🌟", text:"You've got great taste and even better energy." },
+    { icon:"💬", text:"Conversations with you are never boring." },
+    { icon:"🎂", text:"You deserve a genuinely great birthday this year." }
   ],
   letter: `Happy birthday!
 
-I hope today feels as special as you make everything around you feel. You have this way of making people around you a little happier just by being yourself, and I wanted today to be about celebrating that.
+Hope today treats you well and this next year brings you a bunch of good things — good food, good people, good stories to tell.
 
-I don't say this enough, but you matter — more than you probably know. So here's to you: to another year of your laugh, your kindness, and all the small moments that somehow become my favorite ones.
+You're a genuinely fun person to know, and I just wanted to make sure your birthday had a little extra something in it.
 
-Have the most wonderful birthday. You deserve it.`,
-  signOff: "— Me",
-  footerNote: "made with ♥ for someone who deserves the world"
+Go have a great one. You've earned it.`,
+  signOff: "— Amrita",
+  footerNote: "made this for your birthday 🎉"
 };
 
 // ---- apply config to DOM ----
@@ -398,7 +403,7 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 let confettiPieces = [];
-const confettiColors = ['#D6538C','#F2A6C4','#E7B554','#FFD6E0','#ffffff'];
+const confettiColors = ['#FF6B6B','#FFC145','#2EC4B6','#8E6BFF','#FF9F68'];
 function burstConfetti(originX, originY, count=90){
   for(let i=0;i<count;i++){
     const angle = Math.random()*Math.PI*2;
@@ -431,6 +436,43 @@ function animateConfetti(){
   else { confettiRunning = false; ctx.clearRect(0,0,canvas.width,canvas.height); }
 }
 
+// ---- guide toast ----
+const guideToastEl = document.getElementById('guide-toast');
+let guideTimer = null;
+function showGuide(text, autoHideMs){
+  guideToastEl.textContent = text;
+  guideToastEl.classList.add('show');
+  clearTimeout(guideTimer);
+  if(autoHideMs){
+    guideTimer = setTimeout(()=> guideToastEl.classList.remove('show'), autoHideMs);
+  }
+}
+function hideGuide(){ guideToastEl.classList.remove('show'); }
+
+// ---- music ----
+const musicBtn = document.getElementById('music-toggle');
+const audio = document.getElementById('bg-audio');
+let playing = false;
+function startMusic(){
+  if(playing) return;
+  if(!audio.src && !audio.querySelector('source')) return; // no song file added yet
+  audio.play().then(()=>{
+    playing = true;
+    musicBtn.classList.add('playing');
+    musicBtn.textContent = '⏸';
+  }).catch(()=>{ /* browser blocked it — will retry on next tap */ });
+}
+// try right away in case the browser allows it (some desktop browsers do)
+window.addEventListener('load', startMusic);
+// otherwise, fire on the very first tap/click/key anywhere on the page —
+// this is the earliest moment every browser (including iOS Safari) allows audio
+['pointerdown','touchstart','keydown'].forEach(evt=>{
+  document.addEventListener(evt, startMusic, { once:true, passive:true });
+});
+
+// initial hint on the envelope screen
+setTimeout(()=> showGuide('💌 Tap the envelope to begin'), 500);
+
 // ---- envelope open interaction ----
 const envelope = document.getElementById('envelope');
 const envelopeScreen = document.getElementById('envelope-screen');
@@ -438,12 +480,17 @@ const mainContent = document.getElementById('main-content');
 function openEnvelope(){
   if(envelope.classList.contains('open')) return;
   envelope.classList.add('open');
+  hideGuide();
   const rect = envelope.getBoundingClientRect();
   burstConfetti(rect.left+rect.width/2, rect.top+rect.height/2, 70);
+
+  startMusic();
+
   setTimeout(()=>{
     envelopeScreen.classList.add('hidden-screen');
     mainContent.classList.add('revealed');
     document.body.style.overflowY = 'auto';
+    showGuide('🕯️ Tap the candle flame and make a wish');
   }, 900);
 }
 envelope.addEventListener('click', openEnvelope);
@@ -458,12 +505,28 @@ flame.addEventListener('click', ()=>{
   cakeHint.textContent = 'wish made ✨ happy birthday!';
   const rect = flame.getBoundingClientRect();
   burstConfetti(rect.left+rect.width/2, rect.top+rect.height/2, 120);
+  showGuide('⬇️ Scroll down for more', 3500);
 });
 
-// ---- music toggle ----
-const musicBtn = document.getElementById('music-toggle');
-const audio = document.getElementById('bg-audio');
-let playing = false;
+// ---- scroll-triggered guide hints ----
+const cardsSeen = { cards:false, letter:false };
+const guideObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    if(entry.target === cardsGrid && !cardsSeen.cards){
+      cardsSeen.cards = true;
+      showGuide('💕 Tap a card to flip it', 4000);
+    }
+    if(entry.target === document.querySelector('.letter-card') && !cardsSeen.letter){
+      cardsSeen.letter = true;
+      showGuide('📜 Read your letter below', 4000);
+    }
+  });
+}, { threshold:0.4 });
+guideObserver.observe(cardsGrid);
+guideObserver.observe(document.querySelector('.letter-card'));
+
+// ---- music toggle button (manual override) ----
 musicBtn.addEventListener('click', ()=>{
   if(!audio.src && !audio.querySelector('source')){
     musicBtn.textContent = '🔇';
